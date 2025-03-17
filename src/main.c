@@ -9,24 +9,24 @@
 #define MAX_LINE_LENGTH 100
 
 option_t options[] = {
-    {           "help",       no_argument, NULL, 'h',   NULL,                  "Display this information" },
-    {        "version",       no_argument, NULL, 'v',   NULL,                           "Display version" },
-    {           "qubo",       no_argument, NULL, 'q',   NULL,          "Specify that the graph is a QUBO" },
-    {           "file", required_argument, NULL, 'f', "FILE", "Path to the input hamiltonian description" },
-    {      "spin-conf", required_argument, NULL, 's', "FILE",          "Path to the initial spin configs" },
-    {         "init-t", required_argument, NULL, 'i',  "INT",      "Specify an initial temperature value" },
-    {        "final-t", required_argument, NULL, 'I',  "INT",        "Specify an final temperature value" },
-    {            "tau", required_argument, NULL, 'u',  "TAU",                "Specify a tau for annealer" },
-    {     "print-conf",       no_argument, NULL, 'p',   NULL,                  "Output the configuration" },
-    { "print-progress",       no_argument, NULL, 'P',   NULL,              "Print the annealing progress" },
-    {      "ans-count", required_argument, NULL, 'a',  "INT",             "Specify the number of answers" },
-    {             NULL,                 0, NULL,   0,   NULL,                                        NULL },
+    {           "help",       no_argument, NULL, 'h',     NULL,                  "Display this information" },
+    {        "version",       no_argument, NULL, 'v',     NULL,                           "Display version" },
+    {           "qubo",       no_argument, NULL, 'q',     NULL,          "Specify that the graph is a QUBO" },
+    {           "file", required_argument, NULL, 'f',   "FILE", "Path to the input hamiltonian description" },
+    {      "spin-conf", required_argument, NULL, 's',   "FILE",          "Path to the initial spin configs" },
+    {         "init-t", required_argument, NULL, 'i', "DOUBLE",      "Specify an initial temperature value" },
+    {        "final-t", required_argument, NULL, 'I', "DOUBLE",        "Specify an final temperature value" },
+    {            "tau", required_argument, NULL, 'u',    "TAU",                "Specify a tau for annealer" },
+    {     "print-conf",       no_argument, NULL, 'p',     NULL,                  "Output the configuration" },
+    { "print-progress",       no_argument, NULL, 'P',     NULL,              "Print the annealing progress" },
+    {      "ans-count", required_argument, NULL, 'a',    "INT",             "Specify the number of answers" },
+    {             NULL,                 0, NULL,   0,     NULL,                                        NULL },
 };
 
 typedef struct {
     int qubo;
     char *file, *spin_conf;
-    double ini_t, final_t;
+    double init_t, final_t;
     int tau;
     int print_conf, print_progress, ans_count;
 } args_t;
@@ -58,7 +58,7 @@ int main (int argc, char **argv) {
             case 'q': args.qubo = 1; break;
             case 'f': args.file = optarg; break;
             case 's': args.spin_conf = optarg; break;
-            case 'i': args.ini_t = atof(optarg); break;
+            case 'i': args.init_t = atof(optarg); break;
             case 'I': args.final_t = atof(optarg); break;
             case 'u': args.tau = atoi(optarg); break;
             case 'p': args.print_conf = 1; break;
@@ -84,7 +84,7 @@ int main (int argc, char **argv) {
 
     printf("Hamiltonian Energy: %f\n", sa_hamiltonian_energy(graph));
     printf("Simulated Annealing\n");
-    sa_anneal(graph, args.ini_t, args.final_t, args.tau, args.print_progress);
+    sa_anneal(graph, args.init_t, args.final_t, args.tau, args.print_progress);
     printf("Energy: %f\n", sa_hamiltonian_energy(graph));
 
     free_graph(graph);

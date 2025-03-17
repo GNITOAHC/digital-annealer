@@ -89,5 +89,3 @@ int sa_push_back_constant(graph_t *graph, const double co);
 double sa_hamiltonian_energy(graph_t *graph);
 /* Get the hamiltonian energy difference of the graph if flip the node i */
 double sa_energy_diff(graph_t *graph, const int i);
-/* Get the spins configuration of the graph */
-enum spin *sa_spins(graph_t *graph);
