@@ -19,7 +19,7 @@ main: $(TARGET)
 # ===== Main target rule
 $(TARGET): $(OBJS)
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) -L$(BUILD_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) -L$(BUILD_DIR) -lm
 
 # Generic rule for .c to .o
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
